@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.hs": "haskell",
+        "stdlib.h": "c"
+    },
+    "git.ignoreLimitWarning": true
+}
