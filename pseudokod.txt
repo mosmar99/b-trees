@@ -1,15 +1,9 @@
-searchElement(TREE, VAL) 
-
-STEP 1: IF TREE->DATA = VAL OR TREE = NULL, then 
-            Return TREE
-        ELSE
-            IF VAL < TREE->DATA
-                Return search(TREE->LEFT, VAL)
-            ELSE 
-                Return search(TREE->RIGHT, VAL)
-            [ENF IF]
-        [END IF]
-
-STEP 2 END
-
+search(TREE, VAL) 
+if (TREE == NULL) 
+	return NULL;
+for from i = 0 until tree->key_count
+        if (i == tree->key_count) return search(tree->children[i], key);
+        if (key == tree->keys[i]) return tree;
+        if (key < tree->keys[i]) return search(tree->children[i], key);
+[END FOR LOOP]
 
