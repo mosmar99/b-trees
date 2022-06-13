@@ -65,61 +65,14 @@ void traverse(struct node *tree, int level)
 // Returns:
 // pointer to the node where the key is found,
 // otherwise NULL (if the key is not found)
-struct node *search(struct node *tree, int val) {
-    bool foundKey = false;
-    struct node* nodePtr = tree;
-    int leftBound = -1;
-    int rightBound = -1;
-
-    for (size_t i = 0; i < tree->key_count; i++)
+struct node *search(struct node *tree, int key) {
+    if (tree == NULL) return NULL;
+    for (int i = 0; i <= tree->key_count; i++)
     {
-        if (tree->keys[i] == val)
-        {
-            foundKey = true;
-            break;
-        }
-
-        if (tree->keys[i] < val && i == 0)
-        {
-            search(tree->children[i], val);
-        }
-        
-        if (i == tree->key_count - 1 && rightBound == -1) // we know we must go right to the last node
-        {
-            search(tree->children[tree->key_count], val);
-        }
-        
-
-        if (tree->keys[i] < val)
-        {
-            leftBound = i;
-        }
-
-        if (tree->keys[i+1] > val)
-        {
-            rightBound = i+1;
-        }
-
-        if (!(rightBound == -1 || leftBound == -1))
-        {
-            search(tree->children[i+1], val);
-        }
-        
-        
-                
+        if (i == tree->key_count) return search(tree->children[i], key);
+        if (key == tree->keys[i]) return tree;
+        if (key < tree->keys[i]) return search(tree->children[i], key);
     }
-    
-
-
-    if (foundKey)
-    {
-        return nodePtr;
-    }
-    else
-    {
-        return NULL;
-    }
-    
 }
 
 int main()
@@ -172,14 +125,13 @@ int main()
         printf("\n2. Quit");
         printf("\nEnter your option : ");
         scanf("%d", &menuOption);
-        
         while (true)
         {
             if (menuOption == 1 || menuOption == 2)
             {
                 break;
             }
-            
+
             printf("\nNot a valid option. Please choose option (1) or (2).");
             printf("\nEnter your option : ");
             scanf("%d", &menuOption);
@@ -188,15 +140,15 @@ int main()
         switch (menuOption)
         {
         case 1:
-            printf("\nEnter the value to search for: ");
+            printf("Enter the value to search for: ");
             scanf("%d", &searchKey);
             if (search(root, searchKey) == NULL)
             {
-                printf("\nThe key %d is NOT found\n", searchKey);
+                printf("-->The key %d is NOT found\n", searchKey);
             }
             else
             {
-                printf("\nThe key %d is found\n", searchKey);
+                printf("-->The key %d is found\n", searchKey);
             }
             break;
         case 2:
